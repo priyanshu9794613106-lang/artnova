@@ -1,480 +1,1389 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>ARTNOVA — Create Without Limits</title>
-  <meta name="description" content="ARTNOVA is a premium creative digital art experience. Create, explore and bring your imagination to life.">
+<title>ARTNOVA — Creative Studio</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta name="description"
+content="ARTNOVA is a premium creative studio for digital artists and creators.">
 
-  <link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#050506;
+    color:#fff;
+    font-family:Inter,sans-serif;
+    overflow-x:hidden;
+}
+
+a{
+    color:inherit;
+    text-decoration:none;
+}
+
+button{
+    font-family:inherit;
+}
+
+
+/* =====================================================
+   BACKGROUND
+===================================================== */
+
+body::before{
+    content:"";
+    position:fixed;
+    width:700px;
+    height:700px;
+    top:-300px;
+    left:-250px;
+    background:radial-gradient(
+        circle,
+        rgba(140,80,255,.18),
+        transparent 68%
+    );
+    pointer-events:none;
+    z-index:-2;
+}
+
+body::after{
+    content:"";
+    position:fixed;
+    width:700px;
+    height:700px;
+    right:-300px;
+    bottom:-300px;
+    background:radial-gradient(
+        circle,
+        rgba(70,130,255,.12),
+        transparent 68%
+    );
+    pointer-events:none;
+    z-index:-2;
+}
+
+
+/* =====================================================
+   NAVBAR
+===================================================== */
+
+.navbar{
+    width:100%;
+    height:78px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 6%;
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:1000;
+
+    background:rgba(5,5,6,.65);
+    backdrop-filter:blur(22px);
+    -webkit-backdrop-filter:blur(22px);
+
+    border-bottom:1px solid rgba(255,255,255,.07);
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:11px;
+
+    font-family:"Space Grotesk";
+    font-size:18px;
+    font-weight:700;
+    letter-spacing:.5px;
+}
+
+.logo-box{
+    width:37px;
+    height:37px;
+    border-radius:11px;
+
+    display:grid;
+    place-items:center;
+
+    background:#fff;
+    color:#000;
+
+    font-family:"Space Grotesk";
+    font-weight:700;
+
+    box-shadow:
+        0 0 35px rgba(255,255,255,.13);
+}
+
+.nav-links{
+    display:flex;
+    align-items:center;
+    gap:30px;
+}
+
+.nav-links a{
+    color:#85858c;
+    font-size:12px;
+    transition:.3s;
+}
+
+.nav-links a:hover{
+    color:#fff;
+}
+
+.nav-cta{
+    padding:11px 18px;
+    border-radius:30px;
+
+    background:#fff;
+    color:#000 !important;
+
+    font-weight:600 !important;
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero{
+    min-height:100vh;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    position:relative;
+    padding:150px 6% 100px;
+
+    overflow:hidden;
+}
+
+.hero-content{
+    width:100%;
+    max-width:1200px;
+    text-align:center;
+
+    position:relative;
+    z-index:5;
+}
+
+.eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:9px;
+
+    padding:8px 14px;
+
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:30px;
+
+    background:rgba(255,255,255,.025);
+
+    color:#a5a5ab;
+
+    font-size:10px;
+    letter-spacing:2px;
+
+    margin-bottom:28px;
+
+    animation:fadeUp 1s ease both;
+}
+
+.eyebrow-dot{
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:#9d6cff;
+
+    box-shadow:
+        0 0 15px #9d6cff;
+
+    animation:pulse 2s infinite;
+}
+
+.hero h1{
+    font-family:"Space Grotesk";
+    font-size:clamp(60px,10vw,145px);
+    line-height:.85;
+    letter-spacing:-7px;
+
+    font-weight:700;
+
+    margin-bottom:35px;
+
+    animation:heroIn 1.2s cubic-bezier(.2,.8,.2,1) both;
+}
+
+.hero h1 span{
+    background:linear-gradient(
+        110deg,
+        #fff 20%,
+        #9e72ff 50%,
+        #fff 80%
+    );
+
+    background-size:200% auto;
+
+    color:transparent;
+    background-clip:text;
+    -webkit-background-clip:text;
+
+    animation:shine 5s linear infinite;
+}
+
+.hero-text{
+    max-width:600px;
+    margin:auto;
+
+    color:#77777e;
+
+    font-size:15px;
+    line-height:1.8;
+
+    animation:fadeUp 1s .25s ease both;
+}
+
+.hero-actions{
+    display:flex;
+    justify-content:center;
+    gap:12px;
+
+    margin-top:38px;
+
+    animation:fadeUp 1s .4s ease both;
+}
+
+.primary-btn,
+.secondary-btn{
+    min-width:170px;
+
+    padding:15px 23px;
+
+    border-radius:30px;
+
+    font-size:12px;
+    font-weight:600;
+
+    transition:.35s;
+}
+
+.primary-btn{
+    background:#fff;
+    color:#000;
+
+    box-shadow:
+        0 15px 50px rgba(255,255,255,.08);
+}
+
+.primary-btn:hover{
+    transform:translateY(-4px) scale(1.02);
+
+    box-shadow:
+        0 20px 70px rgba(255,255,255,.15);
+}
+
+.secondary-btn{
+    border:1px solid rgba(255,255,255,.12);
+    background:rgba(255,255,255,.025);
+    color:#aaa;
+}
+
+.secondary-btn:hover{
+    color:#fff;
+    border-color:rgba(255,255,255,.3);
+    transform:translateY(-4px);
+}
+
+
+/* =====================================================
+   FLOATING ART CARDS
+===================================================== */
+
+.art-card{
+    position:absolute;
+
+    width:180px;
+    height:230px;
+
+    border-radius:18px;
+
+    border:1px solid rgba(255,255,255,.1);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.08),
+            rgba(255,255,255,.015)
+        );
+
+    backdrop-filter:blur(12px);
+
+    overflow:hidden;
+
+    box-shadow:
+        0 35px 90px rgba(0,0,0,.45);
+
+    opacity:.7;
+
+    pointer-events:none;
+}
+
+.art-card::before{
+    content:"";
+
+    position:absolute;
+
+    width:120px;
+    height:120px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(155,108,255,.8),
+            transparent 70%
+        );
+
+    top:30px;
+    left:30px;
+
+    filter:blur(15px);
+
+    animation:floatShape 6s ease-in-out infinite;
+}
+
+.art-card::after{
+    content:"";
+
+    position:absolute;
+
+    width:100px;
+    height:160px;
+
+    border-radius:50%;
+
+    border:1px solid rgba(255,255,255,.15);
+
+    transform:rotate(35deg);
+
+    bottom:-40px;
+    right:-30px;
+}
+
+.card-one{
+    left:4%;
+    top:27%;
+
+    transform:rotate(-12deg);
+
+    animation:floatOne 7s ease-in-out infinite;
+}
+
+.card-two{
+    right:4%;
+    top:31%;
+
+    transform:rotate(13deg);
+
+    animation:floatTwo 8s ease-in-out infinite;
+}
+
+
+/* =====================================================
+   STUDIO PREVIEW
+===================================================== */
+
+.preview-section{
+    padding:120px 6%;
+
+    position:relative;
+}
+
+.section-head{
+    max-width:1200px;
+    margin:auto;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:end;
+
+    margin-bottom:45px;
+}
+
+.section-label{
+    color:#73737b;
+    font-size:9px;
+    letter-spacing:3px;
+    margin-bottom:13px;
+}
+
+.section-head h2{
+    font-family:"Space Grotesk";
+    font-size:clamp(32px,5vw,65px);
+    letter-spacing:-3px;
+}
+
+.section-head p{
+    max-width:350px;
+    color:#66666e;
+    font-size:12px;
+    line-height:1.7;
+}
+
+.studio-preview{
+    max-width:1200px;
+    height:570px;
+
+    margin:auto;
+
+    border-radius:24px;
+
+    border:1px solid rgba(255,255,255,.1);
+
+    background:#0c0c0e;
+
+    overflow:hidden;
+
+    box-shadow:
+        0 50px 120px rgba(0,0,0,.45);
+
+    transform:translateY(0);
+
+    transition:.5s;
+}
+
+.studio-preview:hover{
+    transform:translateY(-8px);
+}
+
+.preview-top{
+    height:55px;
+
+    display:flex;
+    align-items:center;
+
+    padding:0 18px;
+
+    border-bottom:1px solid rgba(255,255,255,.07);
+}
+
+.preview-dots{
+    display:flex;
+    gap:6px;
+}
+
+.preview-dots span{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#444;
+}
+
+.preview-title{
+    margin:auto;
+
+    color:#666;
+    font-size:10px;
+    letter-spacing:1px;
+}
+
+.preview-body{
+    height:calc(100% - 55px);
+
+    display:flex;
+}
+
+.preview-side{
+    width:60px;
+
+    border-right:1px solid rgba(255,255,255,.07);
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+
+    gap:14px;
+
+    padding-top:18px;
+}
+
+.preview-side span{
+    width:36px;
+    height:36px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:9px;
+
+    background:#141416;
+
+    color:#777;
+}
+
+.preview-canvas{
+    flex:1;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(120,80,200,.08),
+            transparent 50%
+        );
+}
+
+.fake-paper{
+    width:65%;
+    height:70%;
+
+    background:#fff;
+
+    position:relative;
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.5);
+
+    overflow:hidden;
+}
+
+.fake-circle{
+    position:absolute;
+
+    width:220px;
+    height:220px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle at 35% 30%,
+            #d7c4ff,
+            #7444c5 55%,
+            #20102f
+        );
+
+    top:15%;
+    left:20%;
+
+    filter:blur(.2px);
+}
+
+.fake-line{
+    position:absolute;
+
+    width:70%;
+    height:3px;
+
+    background:#111;
+
+    bottom:23%;
+    left:15%;
+
+    transform:rotate(-12deg);
+}
+
+.preview-right{
+    width:190px;
+
+    border-left:1px solid rgba(255,255,255,.07);
+
+    padding:18px;
+}
+
+.fake-row{
+    height:38px;
+
+    border:1px solid rgba(255,255,255,.06);
+
+    background:#111113;
+
+    border-radius:8px;
+
+    margin-bottom:9px;
+}
+
+
+/* =====================================================
+   FEATURES
+===================================================== */
+
+.features{
+    padding:120px 6%;
+}
+
+.feature-grid{
+    max-width:1200px;
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:15px;
+}
+
+.feature{
+    min-height:250px;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:20px;
+
+    padding:27px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.045),
+            rgba(255,255,255,.012)
+        );
+
+    transition:.4s;
+}
+
+.feature:hover{
+    transform:translateY(-8px);
+
+    border-color:
+        rgba(155,108,255,.35);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(155,108,255,.08),
+            rgba(255,255,255,.015)
+        );
+}
+
+.feature-icon{
+    width:46px;
+    height:46px;
+
+    border-radius:13px;
+
+    display:grid;
+    place-items:center;
+
+    background:#151418;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    font-size:20px;
+
+    margin-bottom:30px;
+}
+
+.feature h3{
+    font-family:"Space Grotesk";
+    font-size:20px;
+    margin-bottom:12px;
+}
+
+.feature p{
+    color:#707078;
+    font-size:12px;
+    line-height:1.8;
+}
+
+
+/* =====================================================
+   CREATOR
+===================================================== */
+
+.creator{
+    padding:100px 6%;
+}
+
+.creator-box{
+    max-width:900px;
+
+    margin:auto;
+
+    text-align:center;
+
+    padding:70px 30px;
+
+    border-radius:30px;
+
+    border:1px solid rgba(255,255,255,.09);
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(155,108,255,.1),
+            transparent 60%
+        ),
+        #0b0b0d;
+}
+
+.creator-label{
+    color:#777;
+    font-size:9px;
+    letter-spacing:3px;
+    margin-bottom:15px;
+}
+
+.creator-box h2{
+    font-family:"Space Grotesk";
+    font-size:clamp(35px,6vw,65px);
+    letter-spacing:-3px;
+    margin-bottom:18px;
+}
+
+.creator-box p{
+    color:#777;
+    font-size:13px;
+    margin-bottom:30px;
+}
+
+.creator-name{
+    color:#fff;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer{
+    padding:35px 6%;
+
+    border-top:1px solid rgba(255,255,255,.07);
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    color:#555;
+    font-size:10px;
+}
+
+.footer-name{
+    color:#888;
+}
+
+
+/* =====================================================
+   ANIMATIONS
+===================================================== */
+
+@keyframes heroIn{
+
+    from{
+        opacity:0;
+        transform:translateY(50px) scale(.95);
+        filter:blur(15px);
+    }
+
+    to{
+        opacity:1;
+        transform:none;
+        filter:blur(0);
+    }
+
+}
+
+@keyframes fadeUp{
+
+    from{
+        opacity:0;
+        transform:translateY(25px);
+    }
+
+    to{
+        opacity:1;
+        transform:none;
+    }
+
+}
+
+@keyframes shine{
+
+    0%{
+        background-position:0% center;
+    }
+
+    100%{
+        background-position:200% center;
+    }
+
+}
+
+@keyframes pulse{
+
+    0%,100%{
+        opacity:.4;
+        transform:scale(.8);
+    }
+
+    50%{
+        opacity:1;
+        transform:scale(1.2);
+    }
+
+}
+
+@keyframes floatOne{
+
+    0%,100%{
+        transform:translateY(0) rotate(-12deg);
+    }
+
+    50%{
+        transform:translateY(-30px) rotate(-7deg);
+    }
+
+}
+
+@keyframes floatTwo{
+
+    0%,100%{
+        transform:translateY(0) rotate(13deg);
+    }
+
+    50%{
+        transform:translateY(30px) rotate(8deg);
+    }
+
+}
+
+@keyframes floatShape{
+
+    0%,100%{
+        transform:translate(0,0) scale(1);
+    }
+
+    50%{
+        transform:translate(25px,20px) scale(1.15);
+    }
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:900px){
+
+    .nav-links{
+        display:none;
+    }
+
+    .navbar{
+        padding:0 20px;
+    }
+
+    .art-card{
+        opacity:.25;
+        transform:scale(.65);
+    }
+
+    .card-one{
+        left:-70px;
+    }
+
+    .card-two{
+        right:-70px;
+    }
+
+    .section-head{
+        display:block;
+    }
+
+    .section-head p{
+        margin-top:20px;
+    }
+
+    .feature-grid{
+        grid-template-columns:1fr;
+    }
+
+    .studio-preview{
+        height:400px;
+    }
+
+    .preview-right{
+        display:none;
+    }
+
+    .fake-paper{
+        width:80%;
+        height:70%;
+    }
+
+}
+
+@media(max-width:600px){
+
+    .hero{
+        padding-top:130px;
+    }
+
+    .hero h1{
+        font-size:64px;
+        letter-spacing:-4px;
+    }
+
+    .hero-text{
+        font-size:13px;
+    }
+
+    .hero-actions{
+        flex-direction:column;
+        align-items:center;
+    }
+
+    .primary-btn,
+    .secondary-btn{
+        width:220px;
+    }
+
+    .preview-side{
+        display:none;
+    }
+
+    .studio-preview{
+        height:300px;
+    }
+
+    footer{
+        flex-direction:column;
+        gap:12px;
+        text-align:center;
+    }
+
+}
+
+</style>
 </head>
+
 
 <body>
 
-  <!-- CURSOR -->
-  <div class="cursor"></div>
-  <div class="cursor-ring"></div>
 
-  <!-- NAVIGATION -->
-  <header class="navbar">
-    <a href="#" class="logo">
-      <span class="logo-mark">A</span>
-      <span>ARTNOVA</span>
-    </a>
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
 
-    <nav class="nav-links">
-      <a href="#discover">Discover</a>
-      <a href="#features">Features</a>
-      <a href="#studio">Studio</a>
-      <a href="#creator">Creator</a>
-    </nav>
+<nav class="navbar">
 
-    <a href="#studio" class="nav-button">
-      Start Creating
-      <span>↗</span>
-    </a>
+    <a href="index.html" class="logo">
 
-    <button class="menu-btn" aria-label="Open menu">
-      <span></span>
-      <span></span>
-    </button>
-  </header>
-
-
-  <!-- HERO -->
-  <main>
-
-    <section class="hero">
-
-      <div class="hero-glow glow-one"></div>
-      <div class="hero-glow glow-two"></div>
-
-      <div class="hero-content reveal">
-
-        <div class="eyebrow">
-          <span class="pulse-dot"></span>
-          THE NEW CREATIVE EXPERIENCE
+        <div class="logo-box">
+            A
         </div>
-
-        <h1>
-          Create
-          <span class="gradient-text">without</span>
-          limits.
-        </h1>
-
-        <p class="hero-description">
-          A premium creative space designed for artists, dreamers,
-          designers and anyone with an idea worth bringing to life.
-        </p>
-
-        <div class="hero-actions">
-          <a href="#studio" class="primary-btn">
-            <span>Enter Studio</span>
-            <span class="arrow">↗</span>
-          </a>
-
-          <a href="#discover" class="secondary-btn">
-            Explore ARTNOVA
-          </a>
-        </div>
-
-      </div>
-
-
-      <!-- FLOATING ART CARDS -->
-
-      <div class="floating-art art-one">
-        <div class="art-shape shape-purple"></div>
-      </div>
-
-      <div class="floating-art art-two">
-        <div class="art-shape shape-orange"></div>
-      </div>
-
-      <div class="floating-art art-three">
-        <div class="art-shape shape-blue"></div>
-      </div>
-
-
-      <!-- HERO ORB -->
-      <div class="hero-orb">
-        <div class="orb-inner">
-          <span>ART</span>
-          <strong>NOVA</strong>
-        </div>
-      </div>
-
-      <div class="scroll-indicator">
-        <span>SCROLL TO EXPLORE</span>
-        <div class="scroll-line"></div>
-      </div>
-
-    </section>
-
-
-    <!-- MARQUEE -->
-
-    <section class="marquee-section">
-      <div class="marquee">
-        <span>DRAW</span>
-        <i>✦</i>
-        <span>CREATE</span>
-        <i>✦</i>
-        <span>IMAGINE</span>
-        <i>✦</i>
-        <span>EXPLORE</span>
-        <i>✦</i>
-        <span>DRAW</span>
-        <i>✦</i>
-        <span>CREATE</span>
-        <i>✦</i>
-      </div>
-    </section>
-
-
-    <!-- DISCOVER -->
-
-    <section class="section discover" id="discover">
-
-      <div class="section-heading reveal">
-        <span class="section-number">01 / DISCOVER</span>
-
-        <h2>
-          Your imagination
-          <span>deserves a space.</span>
-        </h2>
-
-        <p>
-          ARTNOVA brings creativity, technology and simplicity
-          together in one beautiful experience.
-        </p>
-      </div>
-
-
-      <div class="feature-showcase">
-
-        <div class="showcase-card large-card reveal">
-
-          <div class="card-top">
-            <span>01</span>
-            <span>CREATIVE CANVAS</span>
-          </div>
-
-          <div class="canvas-preview">
-
-            <div class="brush brush-a"></div>
-            <div class="brush brush-b"></div>
-            <div class="brush brush-c"></div>
-
-            <div class="canvas-text">
-              <small>YOUR IDEA</small>
-              <strong>STARTS<br>HERE.</strong>
-            </div>
-
-          </div>
-
-          <div class="card-bottom">
-            <h3>A canvas made for ideas.</h3>
-            <p>
-              Turn blank space into something unforgettable.
-            </p>
-          </div>
-
-        </div>
-
-
-        <div class="showcase-card reveal">
-
-          <div class="card-top">
-            <span>02</span>
-            <span>PRECISION</span>
-          </div>
-
-          <div class="mini-preview precision-preview">
-            <div class="precision-circle"></div>
-            <div class="precision-line"></div>
-          </div>
-
-          <h3>Every detail matters.</h3>
-
-          <p>
-            Build with control, precision and freedom.
-          </p>
-
-        </div>
-
-
-        <div class="showcase-card reveal">
-
-          <div class="card-top">
-            <span>03</span>
-            <span>EXPRESSION</span>
-          </div>
-
-          <div class="mini-preview expression-preview">
-            <span>✦</span>
-            <span>✧</span>
-            <span>✦</span>
-          </div>
-
-          <h3>Your style. Your rules.</h3>
-
-          <p>
-            Explore your own visual language.
-          </p>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- FEATURES -->
-
-    <section class="section features-section" id="features">
-
-      <div class="section-heading reveal">
-
-        <span class="section-number">02 / FEATURES</span>
-
-        <h2>
-          Tools that
-          <span>disappear.</span>
-        </h2>
-
-        <p>
-          Because the best creative tools get out of your way.
-        </p>
-
-      </div>
-
-
-      <div class="features-grid">
-
-        <article class="feature-item reveal">
-          <div class="feature-icon">✦</div>
-          <div>
-            <span>01</span>
-            <h3>Unlimited Creativity</h3>
-            <p>
-              A flexible environment where ideas can evolve freely.
-            </p>
-          </div>
-        </article>
-
-
-        <article class="feature-item reveal">
-          <div class="feature-icon">◌</div>
-          <div>
-            <span>02</span>
-            <h3>Beautiful Interface</h3>
-            <p>
-              Clean, focused and designed to keep your attention on creation.
-            </p>
-          </div>
-        </article>
-
-
-        <article class="feature-item reveal">
-          <div class="feature-icon">↗</div>
-          <div>
-            <span>03</span>
-            <h3>Made For Everyone</h3>
-            <p>
-              From beginners discovering art to experienced creators.
-            </p>
-          </div>
-        </article>
-
-
-        <article class="feature-item reveal">
-          <div class="feature-icon">∞</div>
-          <div>
-            <span>04</span>
-            <h3>Built For The Future</h3>
-            <p>
-              ARTNOVA is designed to grow with new creative possibilities.
-            </p>
-          </div>
-        </article>
-
-      </div>
-
-    </section>
-
-
-    <!-- STUDIO CTA -->
-
-    <section class="studio-section" id="studio">
-
-      <div class="studio-background"></div>
-
-      <div class="studio-content reveal">
-
-        <span class="section-number">03 / STUDIO</span>
-
-        <h2>
-          Something
-          <span>great</span>
-          starts here.
-        </h2>
-
-        <p>
-          Your creative journey begins with one click.
-        </p>
-
-        <button class="studio-btn" id="studioButton">
-          <span>Open Creative Studio</span>
-          <span>↗</span>
-        </button>
-
-      </div>
-
-      <div class="studio-orbit orbit-one"></div>
-      <div class="studio-orbit orbit-two"></div>
-      <div class="studio-orbit orbit-three"></div>
-
-    </section>
-
-
-    <!-- CREATOR -->
-
-    <section class="section creator-section" id="creator">
-
-      <div class="creator-card reveal">
-
-        <div class="creator-label">
-          THE CREATOR
-        </div>
-
-        <div class="creator-content">
-
-          <div class="creator-avatar">
-            <span>PM</span>
-          </div>
-
-          <div>
-            <h2>Built with imagination.</h2>
-
-            <p>
-              ARTNOVA is an independent creative project focused on
-              making digital creation feel beautiful, simple and inspiring.
-            </p>
-
-            <div class="creator-name">
-              Created by <strong>Priyanshu Mishra</strong>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- FINAL CTA -->
-
-    <section class="final-section">
-
-      <div class="final-content reveal">
 
         <span>ARTNOVA</span>
 
-        <h2>
-          Make something
-          <em>worth seeing.</em>
-        </h2>
+    </a>
 
-        <a href="#studio" class="primary-btn">
-          Start Creating
-          <span>↗</span>
+
+    <div class="nav-links">
+
+        <a href="#studio">
+            Studio
         </a>
 
-      </div>
+        <a href="#features">
+            Features
+        </a>
 
-    </section>
+        <a href="#creator">
+            Creator
+        </a>
 
-  </main>
+        <a
+            href="studio.html"
+            class="nav-cta">
+            Start Creating
+        </a>
+
+    </div>
+
+</nav>
 
 
-  <!-- FOOTER -->
 
-  <footer>
+<!-- =====================================================
+     HERO
+===================================================== -->
 
-    <div class="footer-top">
+<section class="hero">
 
-      <div class="footer-brand">
-        <div class="logo">
-          <span class="logo-mark">A</span>
-          <span>ARTNOVA</span>
+    <div class="art-card card-one"></div>
+
+    <div class="art-card card-two"></div>
+
+
+    <div class="hero-content">
+
+        <div class="eyebrow">
+
+            <span class="eyebrow-dot"></span>
+
+            DIGITAL CREATIVE STUDIO
+
+        </div>
+
+
+        <h1>
+
+            CREATE
+            <br>
+
+            <span>WITHOUT LIMITS.</span>
+
+        </h1>
+
+
+        <p class="hero-text">
+
+            ARTNOVA is a premium creative space
+            built for people who want to turn ideas
+            into digital art.
+
+        </p>
+
+
+        <div class="hero-actions">
+
+            <!-- IMPORTANT: DIRECT LINK -->
+
+            <a
+                href="studio.html"
+                class="primary-btn">
+
+                Start Creating&nbsp; →
+
+            </a>
+
+
+            <a
+                href="#studio"
+                class="secondary-btn">
+
+                Explore ARTNOVA
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     STUDIO PREVIEW
+===================================================== -->
+
+<section
+    class="preview-section"
+    id="studio">
+
+    <div class="section-head">
+
+        <div>
+
+            <div class="section-label">
+                THE STUDIO
+            </div>
+
+            <h2>
+                Your canvas.
+                <br>
+                Your rules.
+            </h2>
+
+        </div>
+
+
+        <p>
+
+            A clean and immersive creative
+            environment designed to keep
+            your focus on the artwork.
+
+        </p>
+
+    </div>
+
+
+    <div class="studio-preview">
+
+
+        <div class="preview-top">
+
+            <div class="preview-dots">
+
+                <span></span>
+                <span></span>
+                <span></span>
+
+            </div>
+
+
+            <div class="preview-title">
+
+                ARTNOVA CREATIVE STUDIO
+
+            </div>
+
+        </div>
+
+
+        <div class="preview-body">
+
+
+            <div class="preview-side">
+
+                <span>✦</span>
+                <span>◌</span>
+                <span>◇</span>
+                <span>T</span>
+
+            </div>
+
+
+            <div class="preview-canvas">
+
+                <div class="fake-paper">
+
+                    <div class="fake-circle"></div>
+
+                    <div class="fake-line"></div>
+
+                </div>
+
+            </div>
+
+
+            <div class="preview-right">
+
+                <div class="fake-row"></div>
+
+                <div class="fake-row"></div>
+
+                <div class="fake-row"></div>
+
+                <div class="fake-row"></div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     FEATURES
+===================================================== -->
+
+<section
+    class="features"
+    id="features">
+
+    <div class="section-head">
+
+        <div>
+
+            <div class="section-label">
+                MADE FOR CREATORS
+            </div>
+
+            <h2>
+                Everything
+                <br>
+                starts here.
+            </h2>
+
         </div>
 
         <p>
-          Create. Explore. Imagine.
+            Simple tools today.
+            More powerful creative
+            features coming to ARTNOVA.
         </p>
-      </div>
-
-
-      <div class="footer-links">
-
-        <div>
-          <span>EXPLORE</span>
-          <a href="#discover">Discover</a>
-          <a href="#features">Features</a>
-          <a href="#studio">Studio</a>
-        </div>
-
-        <div>
-          <span>CONNECT</span>
-          <a href="#creator">Creator</a>
-          <a href="mailto:hello@artnova.example">Contact</a>
-        </div>
-
-      </div>
 
     </div>
 
 
-    <div class="footer-bottom">
+    <div class="feature-grid">
 
-      <span>© 2026 ARTNOVA. All rights reserved.</span>
 
-      <span>MADE FOR CREATORS ✦</span>
+        <div class="feature">
+
+            <div class="feature-icon">
+                🖌
+            </div>
+
+            <h3>
+                Digital Canvas
+            </h3>
+
+            <p>
+                Draw, sketch and experiment
+                on a clean digital canvas
+                designed for creative freedom.
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                ✦
+            </div>
+
+            <h3>
+                Creative Tools
+            </h3>
+
+            <p>
+                Brushes, shapes, colors,
+                text and image tools in
+                one simple workspace.
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                ◇
+            </div>
+
+            <h3>
+                Premium Experience
+            </h3>
+
+            <p>
+                ARTNOVA is being designed
+                around a premium experience
+                for modern digital creators.
+            </p>
+
+        </div>
+
 
     </div>
 
-  </footer>
+</section>
 
 
-  <!-- MOBILE MENU -->
 
-  <div class="mobile-menu">
+<!-- =====================================================
+     CREATOR
+===================================================== -->
 
-    <button class="close-menu">×</button>
+<section
+    class="creator"
+    id="creator">
 
-    <a href="#discover">Discover</a>
-    <a href="#features">Features</a>
-    <a href="#studio">Studio</a>
-    <a href="#creator">Creator</a>
+    <div class="creator-box">
 
-  </div>
-
-
-  <!-- TOAST -->
-
-  <div class="toast" id="toast">
-    Creative Studio is coming next ✦
-  </div>
+        <div class="creator-label">
+            CREATED BY
+        </div>
 
 
-  <script src="script.js"></script>
+        <h2>
+            Priyanshu Mishra
+        </h2>
+
+
+        <p>
+
+            Founder & Creator of
+            <span class="creator-name">
+                ARTNOVA
+            </span>
+
+        </p>
+
+
+        <!-- MOBILE NUMBER -->
+
+        <p style="
+            margin-top:-15px;
+            color:#555;
+        ">
+
+            +91 9794613106
+
+        </p>
+
+
+        <a
+            href="studio.html"
+            class="primary-btn"
+            style="
+                display:inline-block;
+                margin-top:10px;
+            ">
+
+            Enter Creative Studio →
+
+        </a>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    <div>
+        © 2026 ARTNOVA
+    </div>
+
+    <div class="footer-name">
+        Created by Priyanshu Mishra
+    </div>
+
+</footer>
+
 
 </body>
 </html>
