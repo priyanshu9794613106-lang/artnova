@@ -1,938 +1,1682 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>ARTNOVA Studio — Create</title>
+<title>ARTNOVA Studio</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
 
-  <style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+:root{
+    --bg:#070708;
+    --panel:#0d0d0f;
+    --panel2:#121214;
+    --border:rgba(255,255,255,.09);
+    --muted:#77777f;
+    --text:#f5f5f5;
+    --accent:#9b6cff;
+}
 
-    body {
-      background: #080808;
-      color: #fff;
-      font-family: Inter, sans-serif;
-      height: 100vh;
-      overflow: hidden;
-    }
-
-    button,
-    input {
-      font-family: inherit;
-    }
-
-    button {
-      cursor: pointer;
-    }
-
-    /* TOP BAR */
-
-    .topbar {
-      height: 70px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 22px;
-      border-bottom: 1px solid rgba(255,255,255,.09);
-      background: rgba(8,8,8,.95);
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-family: "Space Grotesk";
-      font-weight: 700;
-    }
-
-    .brand-icon {
-      width: 34px;
-      height: 34px;
-      display: grid;
-      place-items: center;
-      background: white;
-      color: black;
-      border-radius: 10px;
-    }
-
-    .brand span:last-child {
-      letter-spacing: .5px;
-    }
-
-    .top-center {
-      color: #888;
-      font-size: 12px;
-      letter-spacing: 1px;
-    }
-
-    .back-btn {
-      color: #aaa;
-      text-decoration: none;
-      font-size: 12px;
-      border: 1px solid rgba(255,255,255,.1);
-      padding: 10px 15px;
-      border-radius: 30px;
-      transition: .3s;
-    }
-
-    .back-btn:hover {
-      color: white;
-      border-color: rgba(255,255,255,.3);
-    }
+body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:Inter,sans-serif;
+    height:100vh;
+    overflow:hidden;
+}
 
 
-    /* TOOLBAR */
+/* ================= TOP BAR ================= */
 
-    .toolbar {
-      height: 70px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 0 18px;
-      border-bottom: 1px solid rgba(255,255,255,.08);
-      background: #0d0d0f;
-      overflow-x: auto;
-    }
+.topbar{
+    height:64px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 18px;
+    border-bottom:1px solid var(--border);
+    background:rgba(7,7,8,.94);
+    backdrop-filter:blur(20px);
+    position:relative;
+    z-index:20;
+}
 
-    .tool {
-      min-width: 45px;
-      height: 43px;
-      border: 1px solid rgba(255,255,255,.08);
-      background: #151517;
-      color: #aaa;
-      border-radius: 10px;
-      font-size: 18px;
-      transition: .25s;
-    }
+.brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:"Space Grotesk";
+    font-weight:700;
+}
 
-    .tool:hover,
-    .tool.active {
-      color: white;
-      background: #252228;
-      border-color: #9b72ff;
-      box-shadow: 0 0 20px rgba(140,90,255,.12);
-    }
+.logo{
+    width:34px;
+    height:34px;
+    border-radius:10px;
+    background:#fff;
+    color:#000;
+    display:grid;
+    place-items:center;
+}
 
-    .divider {
-      width: 1px;
-      height: 30px;
-      background: rgba(255,255,255,.1);
-      margin: 0 8px;
-    }
+.file-name{
+    color:#888;
+    font-size:12px;
+    letter-spacing:.5px;
+}
 
-    .color-wrapper {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      color: #777;
-      font-size: 11px;
-    }
+.top-actions{
+    display:flex;
+    gap:8px;
+}
 
-    #colorPicker {
-      width: 42px;
-      height: 42px;
-      border: 0;
-      background: transparent;
-      cursor: pointer;
-    }
+.top-btn{
+    border:1px solid var(--border);
+    background:#111113;
+    color:#bbb;
+    padding:9px 14px;
+    border-radius:9px;
+    font-size:11px;
+    cursor:pointer;
+    transition:.25s;
+}
 
-    .size-wrapper {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: #777;
-      font-size: 11px;
-    }
+.top-btn:hover{
+    color:#fff;
+    border-color:rgba(255,255,255,.3);
+}
 
-    #sizeRange {
-      width: 110px;
-      accent-color: #9b72ff;
-    }
-
-    #sizeValue {
-      color: white;
-      min-width: 28px;
-    }
+.back{
+    text-decoration:none;
+}
 
 
-    /* WORKSPACE */
+/* ================= TOOLBAR ================= */
 
-    .workspace {
-      height: calc(100vh - 140px);
-      display: flex;
-      position: relative;
-    }
+.toolbar{
+    height:62px;
+    display:flex;
+    align-items:center;
+    gap:7px;
+    padding:0 15px;
+    background:#0c0c0e;
+    border-bottom:1px solid var(--border);
+    overflow-x:auto;
+}
 
-    .side-panel {
-      width: 65px;
-      border-right: 1px solid rgba(255,255,255,.08);
-      background: #0b0b0c;
-      display: flex;
-      align-items: center;
-      flex-direction: column;
-      padding-top: 18px;
-      gap: 12px;
-    }
+.tool{
+    width:42px;
+    height:42px;
+    flex:0 0 42px;
+    border-radius:10px;
+    border:1px solid var(--border);
+    background:#141416;
+    color:#aaa;
+    font-size:17px;
+    cursor:pointer;
+    transition:.25s;
+}
 
-    .side-icon {
-      width: 40px;
-      height: 40px;
-      border: 1px solid transparent;
-      background: transparent;
-      color: #777;
-      border-radius: 10px;
-      font-size: 17px;
-    }
+.tool:hover{
+    color:white;
+    transform:translateY(-2px);
+}
 
-    .side-icon:hover {
-      color: white;
-      background: #151517;
-    }
+.tool.active{
+    color:white;
+    border-color:var(--accent);
+    background:rgba(155,108,255,.13);
+    box-shadow:0 0 20px rgba(155,108,255,.12);
+}
+
+.divider{
+    width:1px;
+    height:30px;
+    background:var(--border);
+    margin:0 7px;
+}
+
+.control{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    color:#666;
+    font-size:9px;
+    letter-spacing:1px;
+    white-space:nowrap;
+}
+
+#colorPicker{
+    width:40px;
+    height:40px;
+    border:0;
+    background:transparent;
+    cursor:pointer;
+}
+
+#sizeRange{
+    width:105px;
+    accent-color:var(--accent);
+}
+
+#sizeValue{
+    color:#fff;
+    min-width:30px;
+}
 
 
-    /* CANVAS AREA */
+/* ================= WORKSPACE ================= */
 
-    .canvas-area {
-      flex: 1;
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: auto;
-      padding: 30px;
-      background:
-        radial-gradient(circle at center, rgba(110,70,180,.07), transparent 45%),
-        #101012;
-    }
+.workspace{
+    height:calc(100vh - 126px);
+    display:flex;
+}
 
-    .canvas-shadow {
-      position: relative;
-      box-shadow:
-        0 25px 100px rgba(0,0,0,.65),
+
+/* ================= LEFT PANEL ================= */
+
+.left-panel{
+    width:64px;
+    background:#0a0a0c;
+    border-right:1px solid var(--border);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
+    padding-top:15px;
+}
+
+.side-tool{
+    width:40px;
+    height:40px;
+    border:1px solid transparent;
+    border-radius:10px;
+    background:transparent;
+    color:#777;
+    cursor:pointer;
+    font-size:17px;
+}
+
+.side-tool:hover{
+    background:#151517;
+    color:white;
+}
+
+
+/* ================= CANVAS ================= */
+
+.canvas-zone{
+    flex:1;
+    position:relative;
+    overflow:auto;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:35px;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(120,80,200,.08),
+            transparent 45%
+        ),
+        #111113;
+}
+
+.canvas-wrapper{
+    position:relative;
+    box-shadow:
+        0 30px 100px rgba(0,0,0,.7),
         0 0 0 1px rgba(255,255,255,.08);
-    }
+}
 
-    #drawingCanvas {
-      display: block;
-      background: white;
-      cursor: crosshair;
-      touch-action: none;
-      max-width: 100%;
-    }
+#canvas{
+    display:block;
+    background:white;
+    touch-action:none;
+    cursor:crosshair;
+}
 
 
-    /* RIGHT PANEL */
+/* ================= RIGHT PANEL ================= */
 
-    .right-panel {
-      width: 235px;
-      border-left: 1px solid rgba(255,255,255,.08);
-      background: #0b0b0c;
-      padding: 20px;
-    }
+.right-panel{
+    width:250px;
+    background:#0a0a0c;
+    border-left:1px solid var(--border);
+    padding:18px;
+    overflow:auto;
+}
 
-    .panel-title {
-      color: #777;
-      font-size: 9px;
-      letter-spacing: 2px;
-      margin-bottom: 18px;
-    }
+.panel-title{
+    color:#666;
+    font-size:9px;
+    letter-spacing:2px;
+    margin-bottom:14px;
+}
 
-    .panel-card {
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: 14px;
-      padding: 15px;
-      background: #101012;
-      margin-bottom: 12px;
-    }
+.panel{
+    background:#101012;
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:14px;
+    margin-bottom:14px;
+}
 
-    .panel-card h3 {
-      font-family: "Space Grotesk";
-      font-size: 14px;
-      margin-bottom: 8px;
-    }
+.panel h3{
+    font-family:"Space Grotesk";
+    font-size:13px;
+    margin-bottom:7px;
+}
 
-    .panel-card p {
-      color: #777;
-      font-size: 11px;
-      line-height: 1.6;
-    }
+.panel p{
+    color:#777;
+    font-size:10px;
+    line-height:1.6;
+}
 
-    .premium {
-      background:
-        radial-gradient(circle at 80% 20%, rgba(145,90,255,.18), transparent 45%),
+
+/* ================= LAYERS ================= */
+
+.layer{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:11px;
+    border:1px solid var(--border);
+    border-radius:9px;
+    margin-top:8px;
+    background:#151517;
+    font-size:10px;
+}
+
+.layer.active{
+    border-color:rgba(155,108,255,.45);
+}
+
+.layer-left{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.layer-dot{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:#9b6cff;
+}
+
+
+/* ================= PREMIUM ================= */
+
+.pro-card{
+    background:
+        radial-gradient(
+            circle at 80% 20%,
+            rgba(155,108,255,.2),
+            transparent 55%
+        ),
         #101012;
+}
+
+.pro-badge{
+    display:inline-block;
+    padding:5px 8px;
+    border-radius:20px;
+    border:1px solid rgba(170,120,255,.35);
+    color:#c4a7ff;
+    font-size:8px;
+    letter-spacing:1px;
+    margin-bottom:10px;
+}
+
+
+/* ================= TOAST ================= */
+
+.toast{
+    position:fixed;
+    bottom:25px;
+    left:50%;
+    transform:translate(-50%,100px);
+    opacity:0;
+    background:white;
+    color:black;
+    padding:13px 20px;
+    border-radius:30px;
+    font-size:11px;
+    z-index:100;
+    transition:.4s;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translate(-50%,0);
+}
+
+
+/* ================= MOBILE ================= */
+
+@media(max-width:900px){
+
+    .right-panel{
+        display:none;
     }
 
-    .premium-badge {
-      display: inline-block;
-      color: #c4a6ff;
-      font-size: 8px;
-      letter-spacing: 1px;
-      border: 1px solid rgba(170,120,255,.3);
-      padding: 5px 8px;
-      border-radius: 20px;
-      margin-bottom: 10px;
+    .left-panel{
+        display:none;
     }
 
-
-    /* EMPTY MESSAGE */
-
-    .canvas-hint {
-      position: absolute;
-      bottom: 15px;
-      left: 50%;
-      transform: translateX(-50%);
-      color: #555;
-      font-size: 10px;
-      pointer-events: none;
+    .topbar{
+        padding:0 12px;
     }
 
-
-    /* MOBILE */
-
-    @media(max-width: 800px) {
-
-      .top-center,
-      .right-panel {
-        display: none;
-      }
-
-      .toolbar {
-        padding: 0 10px;
-      }
-
-      .side-panel {
-        display: none;
-      }
-
-      .workspace {
-        height: calc(100vh - 140px);
-      }
-
-      .canvas-area {
-        padding: 12px;
-      }
-
-      #drawingCanvas {
-        width: min(92vw, 700px);
-        height: auto;
-      }
-
-      .size-wrapper span:first-child {
-        display: none;
-      }
+    .file-name{
+        display:none;
     }
 
-  </style>
+    .canvas-zone{
+        padding:12px;
+    }
+
+}
+
+@media(max-width:600px){
+
+    .top-actions .save-btn{
+        display:none;
+    }
+
+    .brand{
+        font-size:12px;
+    }
+
+    .toolbar{
+        padding:0 8px;
+    }
+
+    .control span:first-child{
+        display:none;
+    }
+
+}
+
+</style>
 </head>
+
 
 <body>
 
-  <!-- TOP -->
 
-  <header class="topbar">
+<!-- ================= TOP ================= -->
 
-    <a href="index.html" class="back-btn">
-      ← ARTNOVA
-    </a>
+<header class="topbar">
 
     <div class="brand">
-      <div class="brand-icon">A</div>
-      <span>CREATIVE STUDIO</span>
+
+        <a href="index.html" class="logo">
+            A
+        </a>
+
+        <span>ARTNOVA</span>
+
+        <span class="file-name">
+            / Untitled Artwork
+        </span>
+
     </div>
 
-    <div class="top-center">
-      UNTITLED ARTWORK
+
+    <div class="top-actions">
+
+        <button class="top-btn" id="newBtn">
+            New
+        </button>
+
+        <button class="top-btn save-btn" id="saveBtn">
+            Save Artwork
+        </button>
+
+        <a href="index.html" class="top-btn back">
+            Exit Studio
+        </a>
+
     </div>
 
-  </header>
+</header>
 
 
-  <!-- TOOLBAR -->
 
-  <div class="toolbar">
+<!-- ================= TOOLBAR ================= -->
 
-    <button class="tool active" id="brushBtn" title="Brush">
-      🖌
+<div class="toolbar">
+
+    <button
+        class="tool active"
+        id="brush"
+        title="Brush">
+        🖌
     </button>
 
-    <button class="tool" id="eraserBtn" title="Eraser">
-      🧽
+    <button
+        class="tool"
+        id="eraser"
+        title="Eraser">
+        🧽
     </button>
+
+    <button
+        class="tool"
+        id="line"
+        title="Line">
+        ╱
+    </button>
+
+    <button
+        class="tool"
+        id="rectangle"
+        title="Rectangle">
+        □
+    </button>
+
+    <button
+        class="tool"
+        id="circle"
+        title="Circle">
+        ○
+    </button>
+
+    <button
+        class="tool"
+        id="textTool"
+        title="Text">
+        T
+    </button>
+
 
     <div class="divider"></div>
 
-    <button class="tool" id="undoBtn" title="Undo">
-      ↶
+
+    <button
+        class="tool"
+        id="undo"
+        title="Undo">
+        ↶
     </button>
 
-    <button class="tool" id="redoBtn" title="Redo">
-      ↷
+    <button
+        class="tool"
+        id="redo"
+        title="Redo">
+        ↷
     </button>
 
-    <button class="tool" id="clearBtn" title="Clear">
-      ⌫
+    <button
+        class="tool"
+        id="clear"
+        title="Clear">
+        ⌫
     </button>
+
 
     <div class="divider"></div>
 
-    <div class="color-wrapper">
-      <span>COLOR</span>
-      <input type="color" id="colorPicker" value="#111111">
+
+    <div class="control">
+
+        <span>COLOR</span>
+
+        <input
+            type="color"
+            id="colorPicker"
+            value="#111111">
+
     </div>
 
-    <div class="size-wrapper">
-      <span>SIZE</span>
-      <input type="range" id="sizeRange" min="1" max="80" value="8">
-      <span id="sizeValue">8px</span>
+
+    <div class="control">
+
+        <span>SIZE</span>
+
+        <input
+            type="range"
+            id="sizeRange"
+            min="1"
+            max="80"
+            value="8">
+
+        <span id="sizeValue">
+            8px
+        </span>
+
     </div>
+
 
     <div class="divider"></div>
 
-    <button class="tool" id="downloadBtn" title="Download">
-      ↓
+
+    <button
+        class="tool"
+        id="upload"
+        title="Upload Image">
+        🖼
     </button>
 
-  </div>
+    <input
+        type="file"
+        id="imageInput"
+        accept="image/*"
+        hidden>
 
 
-  <!-- WORKSPACE -->
+    <button
+        class="tool"
+        id="download"
+        title="Download">
+        ↓
+    </button>
 
-  <main class="workspace">
+</div>
 
-    <aside class="side-panel">
 
-      <button class="side-icon">✦</button>
-      <button class="side-icon">◌</button>
-      <button class="side-icon">◇</button>
-      <button class="side-icon">T</button>
+
+<!-- ================= WORKSPACE ================= -->
+
+<main class="workspace">
+
+
+    <!-- LEFT -->
+
+    <aside class="left-panel">
+
+        <button class="side-tool">
+            ✦
+        </button>
+
+        <button class="side-tool">
+            ◌
+        </button>
+
+        <button class="side-tool">
+            ◇
+        </button>
+
+        <button class="side-tool">
+            ⌁
+        </button>
 
     </aside>
 
 
-    <section class="canvas-area">
 
-      <div class="canvas-shadow">
+    <!-- CANVAS -->
 
-        <canvas
-          id="drawingCanvas"
-          width="1000"
-          height="650">
-        </canvas>
+    <section class="canvas-zone">
 
-      </div>
+        <div class="canvas-wrapper">
 
-      <div class="canvas-hint">
-        Start creating your artwork
-      </div>
+            <canvas
+                id="canvas"
+                width="1000"
+                height="650">
+            </canvas>
+
+        </div>
 
     </section>
 
 
+
+    <!-- RIGHT -->
+
     <aside class="right-panel">
 
-      <div class="panel-title">
-        ARTWORK
-      </div>
-
-      <div class="panel-card">
-
-        <h3>Untitled Artwork</h3>
-
-        <p>
-          Your creative canvas is ready.
-        </p>
-
-      </div>
+        <div class="panel-title">
+            DOCUMENT
+        </div>
 
 
-      <div class="panel-title">
-        TOOLS
-      </div>
+        <div class="panel">
 
-      <div class="panel-card">
+            <h3>
+                Untitled Artwork
+            </h3>
 
-        <h3>Free Canvas</h3>
+            <p>
+                1000 × 650 px
+            </p>
 
-        <p>
-          Draw freely using the brush,
-          colors and eraser.
-        </p>
-
-      </div>
+        </div>
 
 
-      <div class="panel-card premium">
+        <div class="panel-title">
+            LAYERS
+        </div>
 
-        <span class="premium-badge">
-          ARTNOVA PRO
-        </span>
 
-        <h3>Premium Tools</h3>
+        <div class="panel">
 
-        <p>
-          Advanced brushes, layers,
-          effects and more are coming soon.
-        </p>
+            <div class="layer active">
 
-      </div>
+                <div class="layer-left">
+
+                    <span class="layer-dot"></span>
+
+                    <span>
+                        Artwork
+                    </span>
+
+                </div>
+
+                <span>
+                    ◉
+                </span>
+
+            </div>
+
+
+            <div class="layer">
+
+                <div class="layer-left">
+
+                    <span
+                        class="layer-dot"
+                        style="background:#444">
+                    </span>
+
+                    <span>
+                        Background
+                    </span>
+
+                </div>
+
+                <span>
+                    ◉
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="panel-title">
+            CREATIVE TOOLS
+        </div>
+
+
+        <div class="panel">
+
+            <h3>
+                Brush
+            </h3>
+
+            <p>
+                Draw freely using pressure-free
+                digital brush controls.
+            </p>
+
+        </div>
+
+
+        <div class="panel pro-card">
+
+            <span class="pro-badge">
+                ARTNOVA PRO
+            </span>
+
+            <h3>
+                Premium Studio
+            </h3>
+
+            <p>
+                Advanced brushes, layers,
+                effects and creative assets
+                will be available here.
+            </p>
+
+        </div>
 
     </aside>
 
-  </main>
+</main>
 
 
-  <script>
 
-    const canvas =
-      document.getElementById("drawingCanvas");
-
-    const ctx =
-      canvas.getContext("2d");
+<div class="toast" id="toast">
+    Artwork saved ✦
+</div>
 
 
-    /* BACKGROUND */
+
+<script>
+
+/* =========================================
+   ARTNOVA CREATIVE ENGINE
+========================================= */
+
+
+const canvas =
+    document.getElementById("canvas");
+
+const ctx =
+    canvas.getContext("2d");
+
+
+/* ================= STATE ================= */
+
+let tool = "brush";
+
+let color = "#111111";
+
+let size = 8;
+
+let drawing = false;
+
+let startX = 0;
+
+let startY = 0;
+
+let history = [];
+
+let redoHistory = [];
+
+
+/* ================= BACKGROUND ================= */
+
+function createBackground(){
 
     ctx.fillStyle = "#ffffff";
 
     ctx.fillRect(
-      0,
-      0,
-      canvas.width,
-      canvas.height
+        0,
+        0,
+        canvas.width,
+        canvas.height
     );
 
+}
 
-    /* VARIABLES */
-
-    let drawing = false;
-
-    let currentColor = "#111111";
-
-    let brushSize = 8;
-
-    let erasing = false;
-
-    let history = [];
-
-    let redoHistory = [];
+createBackground();
 
 
-    /* SAVE STATE */
+/* ================= SAVE STATE ================= */
 
-    function saveState() {
+function saveState(){
 
-      history.push(
+    history.push(
         canvas.toDataURL()
-      );
+    );
 
-      if (history.length > 30) {
+    if(history.length > 40){
+
         history.shift();
-      }
 
-      redoHistory = [];
     }
 
+    redoHistory = [];
 
-    /* POSITION */
+}
 
-    function getPosition(e) {
 
-      const rect =
+/* ================= RESTORE ================= */
+
+function restoreImage(data){
+
+    const image =
+        new Image();
+
+    image.onload = function(){
+
+        ctx.clearRect(
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
+
+        ctx.drawImage(
+            image,
+            0,
+            0
+        );
+
+    };
+
+    image.src = data;
+
+}
+
+
+/* ================= POSITION ================= */
+
+function position(event){
+
+    const rect =
         canvas.getBoundingClientRect();
 
-      let clientX;
-      let clientY;
+    let clientX;
+    let clientY;
 
-      if (e.touches && e.touches.length) {
 
-        clientX = e.touches[0].clientX;
-        clientY = e.touches[0].clientY;
+    if(event.touches){
 
-      } else {
+        clientX =
+            event.touches[0].clientX;
 
-        clientX = e.clientX;
-        clientY = e.clientY;
+        clientY =
+            event.touches[0].clientY;
 
-      }
+    }else{
 
-      return {
+        clientX =
+            event.clientX;
+
+        clientY =
+            event.clientY;
+
+    }
+
+
+    return {
 
         x:
-          (clientX - rect.left)
-          * (canvas.width / rect.width),
+            (clientX - rect.left)
+            * (canvas.width / rect.width),
 
         y:
-          (clientY - rect.top)
-          * (canvas.height / rect.height)
+            (clientY - rect.top)
+            * (canvas.height / rect.height)
 
-      };
+    };
+
+}
+
+
+/* ================= START DRAW ================= */
+
+function startDraw(event){
+
+    event.preventDefault();
+
+    const pos =
+        position(event);
+
+    startX = pos.x;
+
+    startY = pos.y;
+
+
+    if(tool === "text"){
+
+        saveState();
+
+        const text =
+            prompt("Enter your text:");
+
+        if(text){
+
+            ctx.fillStyle =
+                color;
+
+            ctx.font =
+                `${Math.max(size * 3, 24)}px Space Grotesk`;
+
+            ctx.fillText(
+                text,
+                startX,
+                startY
+            );
+
+        }
+
+        tool = "brush";
+
+        setActive("brush");
+
+        return;
 
     }
 
 
-    /* START */
+    drawing = true;
 
-    function startDrawing(e) {
+    saveState();
 
-      e.preventDefault();
+    ctx.beginPath();
 
-      drawing = true;
+    ctx.moveTo(
+        startX,
+        startY
+    );
 
-      saveState();
-
-      const pos =
-        getPosition(e);
-
-      ctx.beginPath();
-
-      ctx.moveTo(
-        pos.x,
-        pos.y
-      );
-
-    }
+}
 
 
-    /* DRAW */
+/* ================= DRAW ================= */
 
-    function draw(e) {
+function draw(event){
 
-      if (!drawing) return;
+    if(!drawing)
+        return;
 
-      e.preventDefault();
+    event.preventDefault();
 
-      const pos =
-        getPosition(e);
-
-      ctx.lineWidth =
-        brushSize;
-
-      ctx.lineCap = "round";
-
-      ctx.lineJoin = "round";
+    const pos =
+        position(event);
 
 
-      if (erasing) {
+    if(tool === "brush"){
 
         ctx.globalCompositeOperation =
-          "destination-out";
-
-      } else {
-
-        ctx.globalCompositeOperation =
-          "source-over";
+            "source-over";
 
         ctx.strokeStyle =
-          currentColor;
+            color;
 
-      }
+        ctx.lineWidth =
+            size;
 
+        ctx.lineCap =
+            "round";
 
-      ctx.lineTo(
-        pos.x,
-        pos.y
-      );
+        ctx.lineJoin =
+            "round";
 
-      ctx.stroke();
+        ctx.lineTo(
+            pos.x,
+            pos.y
+        );
 
-      ctx.beginPath();
+        ctx.stroke();
 
-      ctx.moveTo(
-        pos.x,
-        pos.y
-      );
+        ctx.beginPath();
+
+        ctx.moveTo(
+            pos.x,
+            pos.y
+        );
 
     }
 
 
-    /* STOP */
+    if(tool === "eraser"){
 
-    function stopDrawing() {
+        ctx.globalCompositeOperation =
+            "destination-out";
 
-      if (!drawing) return;
+        ctx.lineWidth =
+            size * 2;
 
-      drawing = false;
+        ctx.lineCap =
+            "round";
 
-      ctx.beginPath();
+        ctx.lineTo(
+            pos.x,
+            pos.y
+        );
 
-      ctx.globalCompositeOperation =
+        ctx.stroke();
+
+        ctx.beginPath();
+
+        ctx.moveTo(
+            pos.x,
+            pos.y
+        );
+
+    }
+
+}
+
+
+/* ================= END DRAW ================= */
+
+function endDraw(event){
+
+    if(!drawing)
+        return;
+
+    drawing = false;
+
+    const pos =
+        position(event);
+
+    ctx.globalCompositeOperation =
         "source-over";
 
+
+    if(tool === "line"){
+
+        ctx.strokeStyle =
+            color;
+
+        ctx.lineWidth =
+            size;
+
+        ctx.beginPath();
+
+        ctx.moveTo(
+            startX,
+            startY
+        );
+
+        ctx.lineTo(
+            pos.x,
+            pos.y
+        );
+
+        ctx.stroke();
+
     }
 
 
-    /* EVENTS */
+    if(tool === "rectangle"){
 
-    canvas.addEventListener(
-      "mousedown",
-      startDrawing
-    );
+        ctx.strokeStyle =
+            color;
 
-    canvas.addEventListener(
-      "mousemove",
-      draw
-    );
+        ctx.lineWidth =
+            size;
 
-    canvas.addEventListener(
-      "mouseup",
-      stopDrawing
-    );
+        ctx.strokeRect(
+            startX,
+            startY,
+            pos.x - startX,
+            pos.y - startY
+        );
 
-    canvas.addEventListener(
-      "mouseleave",
-      stopDrawing
-    );
+    }
 
 
-    canvas.addEventListener(
-      "touchstart",
-      startDrawing,
-      { passive:false }
-    );
+    if(tool === "circle"){
 
-    canvas.addEventListener(
-      "touchmove",
-      draw,
-      { passive:false }
-    );
+        const dx =
+            pos.x - startX;
 
-    canvas.addEventListener(
-      "touchend",
-      stopDrawing
-    );
+        const dy =
+            pos.y - startY;
 
+        const radius =
+            Math.sqrt(
+                dx * dx +
+                dy * dy
+            );
 
-    /* COLOR */
+        ctx.strokeStyle =
+            color;
 
-    const colorPicker =
-      document.getElementById("colorPicker");
+        ctx.lineWidth =
+            size;
 
-    colorPicker.addEventListener(
-      "input",
-      (e) => {
+        ctx.beginPath();
 
-        currentColor =
-          e.target.value;
+        ctx.arc(
+            startX,
+            startY,
+            radius,
+            0,
+            Math.PI * 2
+        );
 
-        erasing = false;
+        ctx.stroke();
 
-        brushBtn.classList.add("active");
-        eraserBtn.classList.remove("active");
+    }
 
-      }
-    );
+}
 
 
-    /* SIZE */
+/* ================= EVENTS ================= */
 
-    const sizeRange =
-      document.getElementById("sizeRange");
+canvas.addEventListener(
+    "mousedown",
+    startDraw
+);
 
-    const sizeValue =
-      document.getElementById("sizeValue");
+canvas.addEventListener(
+    "mousemove",
+    draw
+);
 
-    sizeRange.addEventListener(
-      "input",
-      (e) => {
+canvas.addEventListener(
+    "mouseup",
+    endDraw
+);
 
-        brushSize =
-          Number(e.target.value);
-
-        sizeValue.textContent =
-          brushSize + "px";
-
-      }
-    );
-
-
-    /* BRUSH */
-
-    const brushBtn =
-      document.getElementById("brushBtn");
-
-    const eraserBtn =
-      document.getElementById("eraserBtn");
-
-    brushBtn.addEventListener(
-      "click",
-      () => {
-
-        erasing = false;
-
-        brushBtn.classList.add("active");
-        eraserBtn.classList.remove("active");
-
-      }
-    );
+canvas.addEventListener(
+    "mouseleave",
+    endDraw
+);
 
 
-    /* ERASER */
+canvas.addEventListener(
+    "touchstart",
+    startDraw,
+    {passive:false}
+);
 
-    eraserBtn.addEventListener(
-      "click",
-      () => {
+canvas.addEventListener(
+    "touchmove",
+    draw,
+    {passive:false}
+);
 
-        erasing = true;
-
-        eraserBtn.classList.add("active");
-        brushBtn.classList.remove("active");
-
-      }
-    );
+canvas.addEventListener(
+    "touchend",
+    endDraw
+);
 
 
-    /* CLEAR */
+/* ================= TOOL SYSTEM ================= */
+
+const tools = [
+    "brush",
+    "eraser",
+    "line",
+    "rectangle",
+    "circle",
+    "textTool"
+];
+
+
+function setActive(id){
 
     document
-      .getElementById("clearBtn")
-      .addEventListener(
-        "click",
-        () => {
+        .querySelectorAll(".tool")
+        .forEach(button => {
 
-          saveState();
+            button.classList.remove(
+                "active"
+            );
 
-          ctx.clearRect(
-            0,
-            0,
-            canvas.width,
-            canvas.height
-          );
+        });
 
-          ctx.fillStyle =
-            "#ffffff";
 
-          ctx.fillRect(
-            0,
-            0,
-            canvas.width,
-            canvas.height
-          );
+    const button =
+        document.getElementById(id);
+
+    if(button){
+
+        button.classList.add(
+            "active"
+        );
+
+    }
+
+}
+
+
+/* BRUSH */
+
+document
+    .getElementById("brush")
+    .onclick = function(){
+
+        tool = "brush";
+
+        setActive("brush");
+
+    };
+
+
+/* ERASER */
+
+document
+    .getElementById("eraser")
+    .onclick = function(){
+
+        tool = "eraser";
+
+        setActive("eraser");
+
+    };
+
+
+/* LINE */
+
+document
+    .getElementById("line")
+    .onclick = function(){
+
+        tool = "line";
+
+        setActive("line");
+
+    };
+
+
+/* RECTANGLE */
+
+document
+    .getElementById("rectangle")
+    .onclick = function(){
+
+        tool = "rectangle";
+
+        setActive("rectangle");
+
+    };
+
+
+/* CIRCLE */
+
+document
+    .getElementById("circle")
+    .onclick = function(){
+
+        tool = "circle";
+
+        setActive("circle");
+
+    };
+
+
+/* TEXT */
+
+document
+    .getElementById("textTool")
+    .onclick = function(){
+
+        tool = "text";
+
+        setActive("textTool");
+
+    };
+
+
+/* ================= COLOR ================= */
+
+document
+    .getElementById("colorPicker")
+    .addEventListener(
+        "input",
+        function(event){
+
+            color =
+                event.target.value;
+
+            tool = "brush";
+
+            setActive("brush");
 
         }
-      );
+    );
 
 
-    /* UNDO */
+/* ================= SIZE ================= */
 
-    document
-      .getElementById("undoBtn")
-      .addEventListener(
-        "click",
-        () => {
+document
+    .getElementById("sizeRange")
+    .addEventListener(
+        "input",
+        function(event){
 
-          if (!history.length)
+            size =
+                Number(event.target.value);
+
+            document
+                .getElementById("sizeValue")
+                .textContent =
+                size + "px";
+
+        }
+    );
+
+
+/* ================= UNDO ================= */
+
+document
+    .getElementById("undo")
+    .onclick = function(){
+
+        if(history.length === 0)
             return;
 
-          redoHistory.push(
+
+        redoHistory.push(
             canvas.toDataURL()
-          );
+        );
 
-          const image =
-            new Image();
 
-          image.src =
+        const previous =
             history.pop();
 
-          image.onload = () => {
 
-            ctx.clearRect(
-              0,
-              0,
-              canvas.width,
-              canvas.height
-            );
+        restoreImage(
+            previous
+        );
 
-            ctx.drawImage(
-              image,
-              0,
-              0
-            );
-
-          };
-
-        }
-      );
+    };
 
 
-    /* REDO */
+/* ================= REDO ================= */
 
-    document
-      .getElementById("redoBtn")
-      .addEventListener(
-        "click",
-        () => {
+document
+    .getElementById("redo")
+    .onclick = function(){
 
-          if (!redoHistory.length)
+        if(redoHistory.length === 0)
             return;
 
-          history.push(
+
+        history.push(
             canvas.toDataURL()
-          );
+        );
 
-          const image =
-            new Image();
 
-          image.src =
+        const next =
             redoHistory.pop();
 
-          image.onload = () => {
 
-            ctx.clearRect(
-              0,
-              0,
-              canvas.width,
-              canvas.height
+        restoreImage(
+            next
+        );
+
+    };
+
+
+/* ================= CLEAR ================= */
+
+document
+    .getElementById("clear")
+    .onclick = function(){
+
+        saveState();
+
+        createBackground();
+
+    };
+
+
+/* ================= NEW ================= */
+
+document
+    .getElementById("newBtn")
+    .onclick = function(){
+
+        const answer =
+            confirm(
+                "Start a new artwork?"
             );
 
-            ctx.drawImage(
-              image,
-              0,
-              0
-            );
 
-          };
+        if(answer){
+
+            saveState();
+
+            createBackground();
 
         }
-      );
+
+    };
 
 
-    /* DOWNLOAD */
+/* ================= IMAGE UPLOAD ================= */
 
-    document
-      .getElementById("downloadBtn")
-      .addEventListener(
-        "click",
-        () => {
+const upload =
+    document.getElementById("upload");
 
-          const link =
+const imageInput =
+    document.getElementById("imageInput");
+
+
+upload.onclick =
+    function(){
+
+        imageInput.click();
+
+    };
+
+
+imageInput.onchange =
+    function(event){
+
+        const file =
+            event.target.files[0];
+
+        if(!file)
+            return;
+
+
+        const reader =
+            new FileReader();
+
+
+        reader.onload =
+            function(e){
+
+                const image =
+                    new Image();
+
+
+                image.onload =
+                    function(){
+
+                        saveState();
+
+
+                        const scale =
+                            Math.min(
+                                canvas.width /
+                                image.width,
+
+                                canvas.height /
+                                image.height
+                            );
+
+
+                        const width =
+                            image.width *
+                            scale;
+
+
+                        const height =
+                            image.height *
+                            scale;
+
+
+                        const x =
+                            (canvas.width -
+                            width) / 2;
+
+
+                        const y =
+                            (canvas.height -
+                            height) / 2;
+
+
+                        ctx.drawImage(
+                            image,
+                            x,
+                            y,
+                            width,
+                            height
+                        );
+
+                    };
+
+
+                image.src =
+                    e.target.result;
+
+            };
+
+
+        reader.readAsDataURL(file);
+
+    };
+
+
+/* ================= DOWNLOAD ================= */
+
+document
+    .getElementById("download")
+    .onclick = function(){
+
+        const link =
             document.createElement("a");
 
-          link.download =
-            "artnova-artwork.png";
 
-          link.href =
+        link.download =
+            "ARTNOVA-Artwork.png";
+
+
+        link.href =
             canvas.toDataURL(
-              "image/png"
+                "image/png"
             );
 
-          link.click();
+
+        link.click();
+
+
+        showToast(
+            "Artwork downloaded ✦"
+        );
+
+    };
+
+
+/* ================= SAVE ================= */
+
+document
+    .getElementById("saveBtn")
+    .onclick = function(){
+
+        localStorage.setItem(
+            "artnovaArtwork",
+            canvas.toDataURL()
+        );
+
+
+        showToast(
+            "Artwork saved ✦"
+        );
+
+    };
+
+
+/* ================= LOAD ================= */
+
+window.addEventListener(
+    "load",
+    function(){
+
+        const saved =
+            localStorage.getItem(
+                "artnovaArtwork"
+            );
+
+
+        if(saved){
+
+            restoreImage(
+                saved
+            );
 
         }
-      );
 
-  </script>
+    }
+);
+
+
+/* ================= TOAST ================= */
+
+function showToast(message){
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+
+    toast.textContent =
+        message;
+
+
+    toast.classList.add(
+        "show"
+    );
+
+
+    setTimeout(
+        function(){
+
+            toast.classList.remove(
+                "show"
+            );
+
+        },
+        2500
+    );
+
+}
+
+
+/* ================= KEYBOARD SHORTCUTS ================= */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            (event.ctrlKey ||
+             event.metaKey)
+            &&
+            event.key.toLowerCase()
+            === "z"
+        ){
+
+            event.preventDefault();
+
+            document
+                .getElementById("undo")
+                .click();
+
+        }
+
+
+        if(
+            (event.ctrlKey ||
+             event.metaKey)
+            &&
+            event.key.toLowerCase()
+            === "y"
+        ){
+
+            event.preventDefault();
+
+            document
+                .getElementById("redo")
+                .click();
+
+        }
+
+    }
+);
+
+
+console.log(
+    "%cARTNOVA CREATIVE STUDIO",
+    "font-size:24px;font-weight:bold;"
+);
+
+console.log(
+    "%cCreate without limits.",
+    "font-size:13px;"
+);
+
+</script>
 
 </body>
 </html>
